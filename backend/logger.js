@@ -3,18 +3,23 @@ const DailyRotateFile = require("winston-daily-rotate-file");
 const fs = require("fs");
 const path = require("path");
 
+// 파일 로그 경로: logs/development | logs/production (NODE_ENV)
+
 const envLabel =
   process.env.NODE_ENV === "production" ? "production" : "development";
-const logDir = path.join(__dirname, "logs", envLabel);
+const logDir = path.resolve(__dirname, "logs", envLabel);
 
 fs.mkdirSync(logDir, { recursive: true });
 
+const fileFormat = format.combine(
+  format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+  format.json(),
+);
+
 const logger = createLogger({
   level: "info",
-  format: format.combine(
-    format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-    format.json(),
-  ),
+  exitOnError: false,
+  format: fileFormat,
   transports: [
     new DailyRotateFile({
       dirname: logDir,
@@ -32,6 +37,10 @@ const logger = createLogger({
       maxFiles: "30d",
     }),
   ],
+});
+
+logger.on("error", (err) => {
+  console.error("[winston transport]", err);
 });
 
 if (process.env.NODE_ENV !== "production") {

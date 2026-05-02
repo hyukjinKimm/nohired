@@ -67,7 +67,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  logger.error(error.message);
+  logger.error(err.message);
   console.error(err);
 });
 

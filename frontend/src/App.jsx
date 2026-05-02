@@ -1,12 +1,20 @@
 import { useEffect } from "react";
+import axios from "axios";
 
 export default function App() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
   useEffect(() => {
-    fetch(`${BACKEND_URL}/test`)
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    axios
+      .get(`${BACKEND_URL}/test`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
+
   return (
     <div>
       <h1>Hello World</h1>
