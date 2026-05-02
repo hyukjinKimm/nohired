@@ -9,6 +9,8 @@ build/
 .env
 .env.*
 !.env.example
+!.env.development.example
+!.env.production.example
 
 # logs
 npm-debug.log*
@@ -56,6 +58,8 @@ build/
 .env
 .env.*
 !.env.example
+!.env.development.example
+!.env.production.example
 
 # OS
 .DS_Store
