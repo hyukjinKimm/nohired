@@ -47,7 +47,7 @@ const sessionOption = {
   cookie: {
     httpOnly: true,
     secure: true,
-    domain: ".nohired.com",
+    domain: `.${process.env.DOMAIN}`,
     maxAge: 1000 * 60 * 60 * 24, // 1일
   },
 };
@@ -69,6 +69,10 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   logger.error(err.message);
   console.error(err);
+  const status = Number(err.status || err.statusCode) || 500;
+  let message = err.message || "서버 오류가 발생했습니다.";
+  const body = { message };
+  res.status(status).json(body);
 });
 
 module.exports = app;
