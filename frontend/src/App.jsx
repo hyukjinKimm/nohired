@@ -6,7 +6,7 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .get(`https://apidev.nohired.com/test`)
+      .get(`${BACKEND_URL}/test`)
       .then((res) => {
         console.log(res.data);
       })
