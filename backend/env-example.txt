@@ -1,0 +1,4 @@
+FRONTEND_URL=https://www.naver.com
+COOKIE_SECRET=d;lfl;flddlk!!!dlfdkf##@fsad;
+PORT=8080
+DOMAIN=naver.com
