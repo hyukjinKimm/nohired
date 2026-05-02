@@ -8,12 +8,21 @@ export default function App() {
     axios
       .get(`${BACKEND_URL}/test`)
       .then((res) => {
-        console.log(res.data);
+        console.log("GET /test", res.data);
       })
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+
+    axios
+      .post(`${BACKEND_URL}/test`, { ping: "from-frontend" })
+      .then((res) => {
+        console.log("POST /test", res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [BACKEND_URL]);
 
   return (
     <div>
